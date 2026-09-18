@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const carouselDots = document.querySelectorAll('.carousel-dot');
   const previousButton = document.querySelector('.carousel-prev');
   const nextButton = document.querySelector('.carousel-next');
+  const rotatingWords = document.querySelectorAll('.word-stack span');
   const animatedSections = document.querySelectorAll('.marquee-wrap, .band-vibe, .experience, .footer');
 
   animatedSections.forEach((section) => section.classList.add('reveal-on-scroll'));
@@ -32,6 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
   nextButton?.addEventListener('click', () => setActiveSlide(activeSlide + 1));
   carouselDots.forEach((dot, index) => dot.addEventListener('click', () => setActiveSlide(index)));
   window.setInterval(() => setActiveSlide(activeSlide + 1), 4200);
+
+  let activeWord = 0;
+  const setActiveWord = (index) => {
+    activeWord = (index + rotatingWords.length) % rotatingWords.length;
+    rotatingWords.forEach((word, wordIndex) => word.classList.toggle('is-active', wordIndex === activeWord));
+  };
+
+  setActiveWord(0);
+  window.setInterval(() => setActiveWord(activeWord + 1), 1900);
 
   window.setTimeout(() => {
     introScreen?.classList.add('intro-screen-hidden');

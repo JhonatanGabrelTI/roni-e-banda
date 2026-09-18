@@ -376,14 +376,15 @@ body.site-ready .site-shell {
   font-weight: 800;
   color: var(--white);
   opacity: 0;
-  transform: translateY(100%);
-  animation: wordCycle 8s infinite;
+  transform: translateY(12px);
+  animation: none;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.word-stack span:nth-child(1) { animation-delay: 0s; }
-.word-stack span:nth-child(2) { animation-delay: 2s; }
-.word-stack span:nth-child(3) { animation-delay: 4s; }
-.word-stack span:nth-child(4) { animation-delay: 6s; }
+.word-stack span.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 @keyframes wordCycle {
   0%, 15% { opacity: 0; transform: translateY(100%); }
@@ -1711,6 +1712,9 @@ body {
 }
 
 .marquee-track {
+  display: inline-flex;
+  width: max-content;
+  min-width: max-content;
   gap: 56px;
   padding: 17px 0 16px;
   color: #0a0a0a;
@@ -1718,11 +1722,8 @@ body {
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.2em;
-  animation: marquee 24s linear infinite;
-}
-
-.marquee-wrap:hover .marquee-track {
-  animation-play-state: paused;
+  animation: marquee 24s linear infinite !important;
+  will-change: transform;
 }
 
 .marquee-track span::after {
